@@ -41,6 +41,9 @@
     <Filter Include="Source\Platform\Win32\Private">
       <UniqueIdentifier>{e226c806-c83b-4c10-9d27-8b18b33dc293}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Core\Classes">
+      <UniqueIdentifier>{cc505a42-58ee-4cc2-859e-9d653d29125a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Krok3ngine.cpp">
@@ -58,6 +61,12 @@
     <ClCompile Include="Source\Platform\WIN32\IApplication.cpp">
       <Filter>Source\Platform\Win32\Private</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Core\Core.cpp">
+      <Filter>Source\Core\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\CoreMinimal.cpp">
+      <Filter>Source\Core\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Krok3ngine.h">
@@ -69,14 +78,20 @@
     <ClInclude Include="Source\Common\Time.h">
       <Filter>Source\Common\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\PerGameSettings.h">
-      <Filter>Source\Core\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Platform\WIN32\IApplication.h">
       <Filter>Source\Platform\Win32\Public</Filter>
     </ClInclude>
     <ClInclude Include="Source\Platform\WIN32\WinEntry.h">
       <Filter>Source\Platform\Win32\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\PerGameSettings.h">
+      <Filter>Source\Core\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Core.h">
+      <Filter>Source\Core\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\CoreMinimal.h">
+      <Filter>Source\Core\Public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

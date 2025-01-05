@@ -4,9 +4,4 @@
 
 #include "../resource.h"
 
-#define MAX_NAME_STRING 256
-#define HInstance() GetModuleHandle(NULL)
-
-#include "Krok3ngine.h"
-
-#include "Common/Logger.h"
+#include "Core/CoreMinimal.h"
