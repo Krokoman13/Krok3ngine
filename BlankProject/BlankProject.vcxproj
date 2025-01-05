@@ -27,7 +27,7 @@
     <Image Include="Content\Icons\OlympusMons.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\Bram ten Haken\Documents\DirectorKrokso\Krokengine-Demo\Krok3ngine\Krok3ngine.vcxproj">
+    <ProjectReference Include="..\Krok3ngine\Krok3ngine.vcxproj">
       <Project>{ef11283e-c235-49c9-8da8-d3732fc160f4}</Project>
     </ProjectReference>
   </ItemGroup>
