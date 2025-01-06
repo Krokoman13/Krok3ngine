@@ -21,15 +21,10 @@ VOID Application::Initialize() {
 	Logger::PrintLog(L"Application Starting...");
 	Logger::PrintLog(L"Game Name: %s", PerGameSettings::GameName());
 	Logger::PrintLog(L"Boot Time: %s", Time::GetDateTimeString().c_str());
+	Logger::PrintLog(L"Engine Mode: %s", Engine::EngineModeString().c_str());
 	Logger::PrintDebugSeperator();
-
-	Logger::PrintLog(L"Test");
-	Logger::PrintWarning(L"Test");
-	Logger::PrintLog(L"Test");
-	Logger::PrintError(L"Test");
-	Logger::PrintLog(L"Test");
 }
 
 VOID Application::Update(){
-	Logger::PrintLog(L"Loop");
+
 }
