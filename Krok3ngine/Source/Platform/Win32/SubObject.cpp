@@ -3,8 +3,8 @@
 
 namespace Win32 {
 
-	SubObject::SubObject(const std::wstring& p_className, const std::wstring& p_classTitle, HICON p_hIcon)
-		: m_class(p_className), m_title(p_classTitle), m_hIcon(p_hIcon){
+	SubObject::SubObject(const std::wstring& a_className, const std::wstring& a_classTitle, HICON a_hIcon)
+		: m_class(a_className), m_title(a_classTitle), m_hIcon(a_hIcon), m_handle() {
 	}
 
 	SubObject::~SubObject() {
@@ -17,7 +17,7 @@ namespace Win32 {
 		wcex.cbClsExtra = 0;
 		wcex.cbWndExtra = 0;
 		wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-		wcex.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
+		wcex.hbrBackground = (HBRUSH)(CreateSolidBrush(RGB(46, 46, 46)));
 		wcex.hIcon = m_hIcon;
 		wcex.hIconSm = m_hIcon;
 		wcex.lpszClassName = m_class.c_str();
@@ -26,23 +26,51 @@ namespace Win32 {
 		wcex.lpfnWndProc = SetupMessageHandler;
 		RegisterClassEx(&wcex);
 	}
-	LRESULT SubObject::SetupMessageHandler(HWND p_hWnd, UINT p_message, WPARAM p_wparam, LPARAM p_lparam) {
-		if (p_message != WM_NCCREATE) {
-			return DefWindowProc(p_hWnd, p_message, p_wparam, p_lparam);
+
+	HWND SubObject::GetHandle() {
+		return m_handle;
+	}
+
+	VOID SubObject::SetHandle(HWND a_handle)
+	{
+		m_handle = a_handle;
+	}
+
+	LRESULT SubObject::SetupMessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wparam, LPARAM a_lparam) {
+		if (a_message != WM_NCCREATE) {
+			return DefWindowProc(a_hWnd, a_message, a_wparam, a_lparam);
 		}
 
-		const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCTW*>(p_lparam);
+		const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCTW*>(a_lparam);
 		SubObject* const pWnd = static_cast<SubObject*>(pCreate->lpCreateParams);
-		SetWindowLongPtr(p_hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
-		SetWindowLongPtr(p_hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&AssignMessageHandler));
+		SetWindowLongPtr(a_hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
+		SetWindowLongPtr(a_hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&AssignMessageHandler));
+		return pWnd->MessageHandler(a_hWnd, a_message, a_wparam, a_lparam);
 	}
 
-	LRESULT SubObject::AssignMessageHandler(HWND p_hWnd, UINT p_message, WPARAM p_wparam, LPARAM p_lparam) {
-		SubObject* const pWnd = reinterpret_cast<SubObject*>(GetWindowLongPtr(p_hWnd, GWLP_USERDATA));
-		return pWnd->MessageHandler(p_hWnd, p_message, p_wparam, p_lparam);
+	LRESULT SubObject::AssignMessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wparam, LPARAM a_lparam) {
+		SubObject* const pWnd = reinterpret_cast<SubObject*>(GetWindowLongPtr(a_hWnd, GWLP_USERDATA));
+		return pWnd->MessageHandler(a_hWnd, a_message, a_wparam, a_lparam);
 	}
 
-	LRESULT SubObject::CommonMessageHandler(HWND p_hWnd, UINT p_message, WPARAM p_wparam, LPARAM p_lparam) {
-		return DefWindowProc(p_hWnd, p_message, p_wparam, p_lparam);
+	LRESULT SubObject::CommonMessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wparam, LPARAM a_lparam) {
+		return DefWindowProc(a_hWnd, a_message, a_wparam, a_lparam);
+	}
+
+	VOID SubObject::SetClass(const std::wstring& a_className) {
+		m_class = a_className;
+	}
+
+	std::wstring SubObject::GetClass() {
+		return m_class;
+	}
+
+	VOID SubObject::SetTitle(const std::wstring& a_classTitle) {
+		m_title = a_classTitle;
+	}
+
+	std::wstring SubObject::GetTitle()
+	{
+		return m_title;
 	}
 }

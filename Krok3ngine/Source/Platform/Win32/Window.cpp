@@ -2,23 +2,28 @@
 #include "Window.h"
 
 namespace Win32 {
-	Window::Window(std::wstring p_className, std::wstring p_classTitle, HICON p_hIcon, INT p_width, INT p_height)
-		: SubObject(p_className, p_classTitle, p_hIcon), m_width(p_width), m_height(p_height) {
+	Window::Window(std::wstring a_className, std::wstring a_classTitle, INT a_width, INT a_height, HICON a_hIcon)
+		: SubObject(a_className, a_classTitle, a_hIcon), m_width(a_width), m_height(a_height) {
 	}
 
 	Window::~Window() {
 	}
 
 	VOID Window::Initialize() {
-		HWND hWnd = CreateWindow(m_class.c_str(), m_title.c_str(), WS_OVERLAPPEDWINDOW,
-			CW_USEDEFAULT, 0, m_width, m_height, nullptr, nullptr, HInstance(), (void*)this);
+		RECT desktop;
+		const HWND hDesktop = GetDesktopWindow();
+		GetWindowRect(hDesktop, &desktop);
 
-		if (!hWnd) {
-			MessageBox(0, L"Failed to Create Window!.", 0, 0);
-			PostQuitMessage(0);
-			return;
-		}
+		RECT r = { 0, 0, m_width, m_height };
+		AdjustWindowRect(&r, WS_OVERLAPPEDWINDOW, false);
+		int width = r.right - r.left;
+		int heigth = r.bottom - r.top;
 
-		ShowWindow(hWnd, SW_SHOW);
+		HWND handle = CreateWindow(GetClass().c_str(), GetTitle().c_str(),
+			WS_POPUP, (desktop.right - m_width) / 2, (desktop.bottom - m_height) / 2, m_width, m_height, 0, 0, HInstance(), (void*)this);
+		SetHandle(handle);
+
+		ShowWindow(handle, SW_SHOW);
+		UpdateWindow(handle);
 	}
 }

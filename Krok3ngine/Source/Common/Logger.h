@@ -19,7 +19,7 @@ public:
 	static VOID PrintDebugSeperator();
 
 private:
-	static VOID log(const WCHAR* p_str);
+	static VOID log(const WCHAR* a_str);
 	static std::wstring dateLog();
 	static std::wstring LogDirectory();
 	static std::wstring LogFile();

@@ -60,21 +60,21 @@ VOID Logger::PrintError(const WCHAR* fmt, ...)
 	log(s.c_str());
 }
 
-VOID Logger::log(const WCHAR* p_str)
+VOID Logger::log(const WCHAR* a_str)
 {
-	if (p_str == nullptr) return;
+	if (a_str == nullptr) return;
 
 	std::wfstream outfile;
 	outfile.open(std::wstring(LogDirectory() + L"/" + LogFile()), std::ios_base::app);
 
-	OutputDebugString(p_str);
+	OutputDebugString(a_str);
 
 	if (!outfile.is_open()) {
 		MessageBox(NULL, L"Unable to open log file...", L"Log Error", MB_OK);
 		return;
 	}
 
-	outfile << p_str;
+	outfile << a_str;
 	outfile.close();
 }
 

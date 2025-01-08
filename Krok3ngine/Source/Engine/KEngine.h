@@ -13,7 +13,7 @@ namespace Engine {
 
 	extern KEngine g_krok3ngine;
 
-	VOID KROK3NGINE_API SetMode(EngineMode p_engineMode);
+	VOID KROK3NGINE_API SetMode(EngineMode a_engineMode);
 	EngineMode KROK3NGINE_API GetMode();
 	std::wstring KROK3NGINE_API EngineModeString();
 }
@@ -26,7 +26,7 @@ public:
 
 public:
 	EngineMode GetEngineMode();
-	VOID SetEngineMode(EngineMode p_enginemode);
+	VOID SetEngineMode(EngineMode a_enginemode);
 
 private:
 	EngineMode m_engineMode;

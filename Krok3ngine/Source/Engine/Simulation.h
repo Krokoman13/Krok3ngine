@@ -7,5 +7,8 @@ namespace Krok3ngine {
 	public:
 		Simulation();
 		~Simulation();
+
+	public:
+		virtual VOID PreInitialize() override;
 	};
 }

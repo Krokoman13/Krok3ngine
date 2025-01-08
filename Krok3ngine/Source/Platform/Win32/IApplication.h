@@ -10,6 +10,7 @@ namespace Win32 {
 
 	public:
 		virtual VOID SetupPerGameSettings() = 0;
+		virtual VOID PreInitialize() = 0;
 		virtual VOID Initialize() = 0;
 		virtual VOID Update() = 0;
 	};

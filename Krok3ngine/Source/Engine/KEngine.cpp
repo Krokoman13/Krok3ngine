@@ -3,8 +3,8 @@
 namespace Engine {
 	KEngine g_krok3ngine;
 
-	VOID SetMode(EngineMode p_engineMode) {
-		g_krok3ngine.SetEngineMode(p_engineMode);
+	VOID SetMode(EngineMode a_engineMode) {
+		g_krok3ngine.SetEngineMode(a_engineMode);
 	}
 
 	EngineMode GetMode() {
@@ -14,10 +14,10 @@ namespace Engine {
 	std::wstring EngineModeString(){
 		switch (GetMode())
 		{
-		case EngineMode::DEBUG: return L"Debug,";
-		case EngineMode::RELEASE: return L"Release,";
-		case EngineMode::EDITOR: return L"Editor,";
-		case EngineMode::SERVER: return L"Server,";
+		case EngineMode::DEBUG: return L"Debug";
+		case EngineMode::RELEASE: return L"Release";
+		case EngineMode::EDITOR: return L"Editor";
+		case EngineMode::SERVER: return L"Server";
 		default:
 			return L"None";
 		}
@@ -39,6 +39,6 @@ EngineMode KEngine::GetEngineMode() {
 	return m_engineMode;
 }
 
-VOID KEngine::SetEngineMode(EngineMode p_enginemode) {
-	m_engineMode = p_enginemode;
+VOID KEngine::SetEngineMode(EngineMode a_enginemode) {
+	m_engineMode = a_enginemode;
 }
