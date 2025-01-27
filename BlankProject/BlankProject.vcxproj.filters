@@ -19,6 +19,9 @@
     <Filter Include="Resources\Icons">
       <UniqueIdentifier>{34768a3c-77fc-4599-9572-f5814216886a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Texures">
+      <UniqueIdentifier>{eddf6a8e-6e0f-44e5-b887-a021b74f679d}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resources\Shaders">
       <UniqueIdentifier>{08c07e44-d633-4171-ba83-309991fcca9b}</UniqueIdentifier>
     </Filter>
@@ -60,6 +63,9 @@
   <ItemGroup>
     <Image Include="Content\Icons\OlympusMons.ico">
       <Filter>Resources\Icons</Filter>
+    </Image>
+    <Image Include="Content\Models\cup\cup.jpg">
+      <Filter>Resources\Texures</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
