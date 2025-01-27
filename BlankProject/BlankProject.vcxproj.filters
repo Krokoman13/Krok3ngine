@@ -39,19 +39,7 @@
     <ClInclude Include="Source\BlankProject.h">
       <Filter>Source\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DeviceResources.h">
-      <Filter>Source\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Sample.h">
-      <Filter>Source\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ATGColors.h">
-      <Filter>Source\Private</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ReadData.h">
-      <Filter>Source\Private</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\StepTimer.h">
       <Filter>Source\Private</Filter>
     </ClInclude>
   </ItemGroup>
@@ -70,12 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\BlankProject.cpp">
-      <Filter>Source\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DeviceResources.cpp">
-      <Filter>Source\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Sample.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
   </ItemGroup>

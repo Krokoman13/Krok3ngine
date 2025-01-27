@@ -12,17 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\BlankProject.cpp" />
-    <ClCompile Include="Source\DeviceResources.cpp" />
-    <ClCompile Include="Source\Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Source\ATGColors.h" />
     <ClInclude Include="Source\BlankProject.h" />
-    <ClInclude Include="Source\DeviceResources.h" />
     <ClInclude Include="Source\ReadData.h" />
-    <ClInclude Include="Source\Sample.h" />
-    <ClInclude Include="Source\StepTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BlankProject.rc" />
