@@ -19,6 +19,15 @@
     <Filter Include="Resources\Icons">
       <UniqueIdentifier>{34768a3c-77fc-4599-9572-f5814216886a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{08c07e44-d633-4171-ba83-309991fcca9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\VertexShaders">
+      <UniqueIdentifier>{98426f30-3c34-4a8c-b0cb-b8c235554980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders\PixelShaders">
+      <UniqueIdentifier>{622efc8e-f65b-4772-bd05-9bdbd08cd56f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -26,6 +35,21 @@
     </ClInclude>
     <ClInclude Include="Source\BlankProject.h">
       <Filter>Source\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DeviceResources.h">
+      <Filter>Source\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Sample.h">
+      <Filter>Source\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ATGColors.h">
+      <Filter>Source\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ReadData.h">
+      <Filter>Source\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StepTimer.h">
+      <Filter>Source\Private</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -42,5 +66,19 @@
     <ClCompile Include="Source\BlankProject.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
+    <ClCompile Include="Source\DeviceResources.cpp">
+      <Filter>Source\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Sample.cpp">
+      <Filter>Source\Private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Content\Shaders\PixelShader.hlsl">
+      <Filter>Resources\Shaders\PixelShaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\Shaders\VertexShader.hlsl">
+      <Filter>Resources\Shaders\VertexShaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

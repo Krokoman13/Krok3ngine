@@ -12,21 +12,37 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\BlankProject.cpp" />
+    <ClCompile Include="Source\DeviceResources.cpp" />
+    <ClCompile Include="Source\Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\ATGColors.h" />
     <ClInclude Include="Source\BlankProject.h" />
+    <ClInclude Include="Source\DeviceResources.h" />
+    <ClInclude Include="Source\ReadData.h" />
+    <ClInclude Include="Source\Sample.h" />
+    <ClInclude Include="Source\StepTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BlankProject.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Content\Icons\OlympusMons.ico" />
+    <Image Include="Content\Models\cup\cup.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Krok3ngine\Krok3ngine.vcxproj">
       <Project>{ef11283e-c235-49c9-8da8-d3732fc160f4}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Content\Shaders\PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Content\Shaders\VertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -73,11 +89,11 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>BlankProject.h</PrecompiledHeaderFile>
@@ -91,6 +107,9 @@
       <Command>
       </Command>
     </PreBuildEvent>
+    <FxCompile>
+      <ShaderModel>4.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -100,7 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>BlankProject.h</PrecompiledHeaderFile>

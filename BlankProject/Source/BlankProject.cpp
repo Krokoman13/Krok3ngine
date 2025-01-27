@@ -3,6 +3,9 @@
 #include "Engine/Simulation.h"
 #include "Platform/Win32/WinEntry.h"
 
+#include "Sample.h"
+
+
 class BlankProject : public Krok3ngine::Simulation {
 public:
 	BlankProject() {};
@@ -12,6 +15,9 @@ public:
 	VOID SetupPerGameSettings();
 	VOID Initialize();
 	VOID Update();
+
+private:
+	Sample triangle;
 };
 
 ENTRYAPP(BlankProject)
@@ -24,7 +30,9 @@ VOID BlankProject::SetupPerGameSettings() {
 }
 
 VOID BlankProject::Initialize() {
+	triangle.Initialize(GetHandle(), GetSize().cx, GetSize().cy);
 }
 
 VOID BlankProject::Update() {
+	triangle.Tick();
 }
