@@ -5,8 +5,7 @@
 #define			CB_MAXIMIZE		2
 
 namespace Win32 {
-	class Caption
-	{
+	class KROK3NGINE_API Caption {
 	public:
 		Caption();
 		~Caption();
