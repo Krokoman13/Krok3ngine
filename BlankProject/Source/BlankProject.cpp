@@ -24,15 +24,68 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout>       m_spInputLayout;
 	Microsoft::WRL::ComPtr<ID3D11Buffer>			m_pConstantBuffer;
 
-	// Create vertex buffer.
-	const Vertex m_vertexData[6] = {
-		{ { -0.5f,  0.5f,  0.5f, 1.0f },{ 1.0f, 0.0f, 0.0f, 1.0f } },  // TopLeft
-		{ {  0.5f,  0.5f,  0.5f, 1.0f },{ 0.5f, 0.0f, 0.0f, 1.0f } },  // TopRight
-		{ {  0.5f, -0.5f,  0.5f, 1.0f },{ 0.0f, 1.0f, 0.0f, 1.0f } },  // BottemRight
+	Vertex m_topLeftFront =		{ { -0.5f,  0.5f,  0.5f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } }; // Red
+	Vertex m_topRightFront =	{ {  0.5f,  0.5f,  0.5f, 1.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } }; // Blue
+	Vertex m_bottemRightFront = { {  0.5f, -0.5f,  0.5f, 1.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }; // Green
+	Vertex m_bottemLeftFront =	{ { -0.5f, -0.5f,  0.5f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f } }; // White
 
-		{ {  0.5f, -0.5f,  0.5f, 1.0f },{ 0.0f, 1.0f, 0.0f, 1.0f } },  // BottemRight
-		{ { -0.5f, -0.5f,  0.5f, 1.0f },{ 0.0f, 0.5f, 0.0f, 1.0f } },  // BottemLeft
-		{ { -0.5f,  0.5f,  0.5f, 1.0f },{ 1.0f, 0.0f, 0.0f, 1.0f } },   // TopLeft
+	Vertex m_bottemRightBack =	{ {  0.5f, -0.5f, -0.5f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f } }; // Cyan
+	Vertex m_topRightBack =		{ {  0.5f,  0.5f, -0.5f, 1.0f }, { 1.0f, 0.0f, 1.0f, 1.0f } }; // Magenta
+	Vertex m_topLeftBack =		{ { -0.5f,  0.5f, -0.5f, 1.0f }, { 1.0f, 1.0f, 0.0f, 1.0f } }; // Yellow
+	Vertex m_bottemLeftBack =	{ { -0.5f, -0.5f, -0.5f, 1.0f }, { 0.0f, 0.0f, 0.0f, 1.0f } }; // Black
+
+	// Create vertex buffer.
+	const Vertex m_vertexData[36] = {
+		//Front
+		m_bottemRightFront,
+		m_topRightFront,
+		m_topLeftFront,
+		//Front
+		m_topLeftFront,
+		m_bottemLeftFront,
+		m_bottemRightFront,
+		
+
+		m_bottemRightBack,
+		m_topRightBack,
+		m_topRightFront,
+		//Right
+		m_topRightFront,
+	    m_bottemRightFront,
+		m_bottemRightBack,
+
+
+		m_topLeftBack,
+		m_topRightBack,  
+		m_bottemRightBack,
+		//Back
+		m_bottemRightBack,
+		m_bottemLeftBack,  
+		m_topLeftBack,
+
+		m_topLeftBack,
+		m_bottemLeftBack,
+		m_bottemLeftFront,
+		//Left
+		m_bottemLeftFront,
+		m_topLeftFront,
+		m_topLeftBack,
+
+		m_topRightFront,
+		m_topRightBack,
+		m_topLeftBack,
+		//Top
+		m_topLeftBack,
+		m_topLeftFront,
+		m_topRightFront,
+
+		m_bottemLeftFront,
+		m_bottemLeftBack,
+		m_bottemRightBack,
+		//Bottem
+		m_bottemRightBack,
+		m_bottemRightFront,
+		m_bottemLeftFront,
 	};
 
 public:

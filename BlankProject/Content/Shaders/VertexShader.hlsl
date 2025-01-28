@@ -28,7 +28,8 @@ cbuffer MatrixBuffer
 
 Interpolants main(VertexInput In)
 {
-    float4 pos = mul(mul(mul(In.position, worldMatrix), viewMatrix), projectionMatrix);
+    matrix mvp = mul(mul(projectionMatrix, viewMatrix), worldMatrix);
+    float4 pos = mul(mvp, In.position);
     
     Interpolants Out;
     Out.position = pos;

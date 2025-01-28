@@ -4,15 +4,16 @@
 namespace DX {
 	DirectXManager::DirectXManager() : Win32::Window(L"Application", Win32::RESIZABLE, NULL) {
 		m_screenViewport = { 0.0f, 0.0f, (float)GetSize().cx, (float)GetSize().cy };
-		m_world = { 
-			{1.0f, 0.0f, 0.0f, 0.0f},
-			{0.0f, 1.0f, 0.0f, 0.0f},
-			{0.0f, 0.0f, 1.0f, 0.0f},
-			{0.0f, 0.0f, 0.0f, 1.0f}
-		};
+		m_world = DirectX::XMMatrixIdentity();
 
-		m_view = DirectX::XMMatrixIdentity();
-		m_proj = DirectX::XMMatrixIdentity();
+		m_view = DirectX::XMMatrixTranslation(0.0f, 0.0f, 1.5f);
+
+		m_proj = DirectX::XMMatrixPerspectiveFovLH(
+			DirectX::XM_PI / 2.0f,  // Field of view (45 degrees)
+			(float)GetSize().cx / (float)GetSize().cy,     
+			0.1f,                  // Near plane
+			100.0f                 // Far plane
+		);
 	}
 
 	void DirectXManager::Initialize() {
@@ -145,11 +146,8 @@ namespace DX {
 		);
 	}
 
-	float angle = 0.f;
-
 	void DirectXManager::Render() {
-		m_world = DirectX::XMMatrixRotationAxis(DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f), angle);
-		angle += 0.01f;
+		m_world *= DirectX::XMMatrixRotationAxis(DirectX::XMVectorSet(1.0f, 1.0f, 0.0f, 1.0f), 0.01f);
 
 		m_d3dAnnotation->BeginEvent(L"Clear");
 
