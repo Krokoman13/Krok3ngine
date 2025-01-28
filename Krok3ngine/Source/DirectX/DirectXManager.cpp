@@ -6,7 +6,7 @@ namespace DX {
 		m_screenViewport = { 0.0f, 0.0f, (float)GetSize().cx, (float)GetSize().cy };
 		m_world = DirectX::XMMatrixIdentity();
 
-		m_view = DirectX::XMMatrixTranslation(0.0f, 0.0f, 1.5f);
+		m_view = DirectX::XMMatrixTranslation(0.0f, 0.0f, 3.f);
 
 		m_proj = DirectX::XMMatrixPerspectiveFovLH(
 			DirectX::XM_PI / 2.0f,  // Field of view (45 degrees)
@@ -148,6 +148,7 @@ namespace DX {
 
 	void DirectXManager::Render() {
 		m_world *= DirectX::XMMatrixRotationAxis(DirectX::XMVectorSet(1.0f, 1.0f, 0.0f, 1.0f), 0.01f);
+		m_view *= DirectX::XMMatrixTranslation(0.f, 0.f, 0.01f);
 
 		m_d3dAnnotation->BeginEvent(L"Clear");
 
