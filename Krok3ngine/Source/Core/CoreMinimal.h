@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/CoreDefinitions.h"
+#include "DirectX/DirectX.h"
 
 #include "Engine/KEngine.h"
 

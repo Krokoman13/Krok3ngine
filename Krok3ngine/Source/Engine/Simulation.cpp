@@ -4,8 +4,7 @@
 #include "SplashScreen.h"
 
 namespace Krok3ngine {
-	Simulation::Simulation() 
-		: Win32::Window(L"MainApplication", Win32::RESIZABLE) {
+	Simulation::Simulation() {
 	}
 
 	Simulation::~Simulation() {
@@ -24,6 +23,14 @@ namespace Krok3ngine {
 
 		Win32::Window::RegisterNewClass();
 		Win32::Window::Initialize();
+	}
+
+	VOID Simulation::Initialize() {
+		DX::DirectXManager::Initialize();
+	}
+
+	VOID Simulation::Update() {
+		DX::DirectXManager::Render();
 	}
 
 	LRESULT Simulation::MessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wparam, LPARAM a_lparam) {

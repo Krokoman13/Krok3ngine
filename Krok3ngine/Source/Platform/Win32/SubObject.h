@@ -32,7 +32,5 @@ namespace Win32 {
 
 		HICON m_hIcon;
 		HWND handle;		
-		
-
 	};
 }

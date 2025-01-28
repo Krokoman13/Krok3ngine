@@ -98,6 +98,8 @@
     <ClCompile Include="Source\Core\Core.cpp" />
     <ClCompile Include="Source\Core\CoreMinimal.cpp" />
     <ClCompile Include="Source\Core\PerGameSettings.cpp" />
+    <ClCompile Include="Source\DirectX\DirectXManager.cpp" />
+    <ClCompile Include="Source\DirectX\IRenderObject.cpp" />
     <ClCompile Include="Source\Engine\KEngine.cpp" />
     <ClCompile Include="Source\Engine\Simulation.cpp" />
     <ClCompile Include="Source\Engine\SplashScreen.cpp" />
@@ -115,6 +117,9 @@
     <ClInclude Include="Source\Core\Core.h" />
     <ClInclude Include="Source\Core\CoreMinimal.h" />
     <ClInclude Include="Source\Core\PerGameSettings.h" />
+    <ClInclude Include="Source\DirectX\DirectX.h" />
+    <ClInclude Include="Source\DirectX\DirectXManager.h" />
+    <ClInclude Include="Source\DirectX\IRenderObject.h" />
     <ClInclude Include="Source\Engine\KEngine.h" />
     <ClInclude Include="Source\Engine\Simulation.h" />
     <ClInclude Include="Source\Engine\SplashScreen.h" />

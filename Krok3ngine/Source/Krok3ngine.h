@@ -6,5 +6,7 @@
 
 #include <string>
 #include <list>
+#include <vector>
+#include <memory>
 
 #include "Core/Core.h"

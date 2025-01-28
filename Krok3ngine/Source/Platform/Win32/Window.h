@@ -1,7 +1,5 @@
 #pragma once
 
-#include "SubObject.h"
-
 #include <Uxtheme.h>
 #pragma comment(lib,"uxtheme.lib")
 

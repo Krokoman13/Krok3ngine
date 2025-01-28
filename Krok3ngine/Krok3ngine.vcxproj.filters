@@ -59,6 +59,18 @@
     <Filter Include="Source\Platform\Win32\Classes">
       <UniqueIdentifier>{cb75509c-a3bf-415e-87d2-2d5bf0338970}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\DirectX">
+      <UniqueIdentifier>{ad3896a1-75b0-4987-8fe6-554cc0c1cd00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DirectX\Classes">
+      <UniqueIdentifier>{849d7bea-a0c2-4ecb-ab9f-61572fde1dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DirectX\Private">
+      <UniqueIdentifier>{d29c52ea-8204-4254-8370-e077a491dd70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\DirectX\Public">
+      <UniqueIdentifier>{f51aafbf-5467-4f3b-bd7a-2fc8babca09e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Krok3ngine.cpp">
@@ -105,6 +117,12 @@
     </ClCompile>
     <ClCompile Include="Source\Platform\Win32\Caption.cpp">
       <Filter>Source\Platform\Win32\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\DirectXManager.cpp">
+      <Filter>Source\DirectX\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\IRenderObject.cpp">
+      <Filter>Source\DirectX\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +173,15 @@
     </ClInclude>
     <ClInclude Include="Source\Platform\Win32\Caption.h">
       <Filter>Source\Platform\Win32\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\DirectXManager.h">
+      <Filter>Source\DirectX\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\DirectX.h">
+      <Filter>Source\DirectX\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\IRenderObject.h">
+      <Filter>Source\DirectX\Public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
