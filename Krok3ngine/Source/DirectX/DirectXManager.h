@@ -3,9 +3,9 @@
 namespace DX {
 	class KROK3NGINE_API IRenderObject {
 	public:
-		virtual void CreateDeviceResources(ID3D11Device1* a_device) = 0;
+		virtual void CreateDeviceResources(ID3D11Device1* a_device, ID3D11DeviceContext1* a_context) = 0;
 		virtual void CreateWindowSizeDependentResources(ID3D11Device1* a_device, SIZE a_windowSize) {};
-		virtual void Render(ID3D11DeviceContext1* a_context, DirectX::FXMMATRIX a_world, DirectX::CXMMATRIX a_view, DirectX::CXMMATRIX a_projection) = 0;
+		virtual void Render(ID3D11Device1* a_device, ID3D11DeviceContext1* a_context, DirectX::FXMMATRIX a_world, DirectX::CXMMATRIX a_view, DirectX::CXMMATRIX a_projection) = 0;
 	};
 
 	class KROK3NGINE_API DirectXManager : public Win32::Window {

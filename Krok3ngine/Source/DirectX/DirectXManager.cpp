@@ -11,24 +11,14 @@ namespace DX {
 			{0.0f, 0.0f, 0.0f, 1.0f}
 		};
 
-		m_view = DirectX::XMMatrixLookAtLH(
-			DirectX::XMVectorSet(0.0f, 0.0f, -5.0f, 1.0f),
-			DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f),
-			DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f)
-		);
-
-		m_proj = DirectX::XMMatrixPerspectiveFovLH(
-			DirectX::XM_PI / 4.0f,
-			(float)GetSize().cx / (float)GetSize().cy,
-			0.1f,
-			100.0f
-		);
+		m_view = DirectX::XMMatrixIdentity();
+		m_proj = DirectX::XMMatrixIdentity();
 	}
 
 	void DirectXManager::Initialize() {
 		createDeviceResources();
 		for (IRenderObject* it : m_renderObjects) {
-			it->CreateDeviceResources(m_d3dDevice.Get());
+			it->CreateDeviceResources(m_d3dDevice.Get(), m_d3dContext.Get());
 		}
 
 		createWindowSizeDependentResources();
@@ -155,7 +145,12 @@ namespace DX {
 		);
 	}
 
+	float angle = 0.f;
+
 	void DirectXManager::Render() {
+		m_world = DirectX::XMMatrixRotationAxis(DirectX::XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f), angle);
+		angle += 0.01f;
+
 		m_d3dAnnotation->BeginEvent(L"Clear");
 
 		// Clear the views.
@@ -177,7 +172,7 @@ namespace DX {
 		m_d3dAnnotation->BeginEvent(L"Render");
 
 		for (auto it : m_renderObjects) {
-			it->Render(m_d3dContext.Get(), m_world, m_view, m_proj);
+			it->Render(m_d3dDevice.Get(), m_d3dContext.Get(), m_world, m_view, m_proj);
 		}
 
 		//Present

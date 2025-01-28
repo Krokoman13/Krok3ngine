@@ -5,10 +5,15 @@
 
 #include "ReadData.h"
 
-struct Vertex
-{
+struct Vertex {
 	DirectX::XMFLOAT4 position;
 	DirectX::XMFLOAT4 color;
+};
+
+struct MatrixBuffer {
+	DirectX::XMFLOAT4X4  world;
+	DirectX::XMFLOAT4X4  view;
+	DirectX::XMFLOAT4X4  projection;
 };
 
 class Triangle : public DX::IRenderObject {
@@ -17,9 +22,21 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11VertexShader>      m_spVertexShader;
 	Microsoft::WRL::ComPtr<ID3D11PixelShader>       m_spPixelShader;
 	Microsoft::WRL::ComPtr<ID3D11InputLayout>       m_spInputLayout;
+	Microsoft::WRL::ComPtr<ID3D11Buffer>			m_pConstantBuffer;
+
+	// Create vertex buffer.
+	const Vertex m_vertexData[6] = {
+		{ { -0.5f,  0.5f,  0.5f, 1.0f },{ 1.0f, 0.0f, 0.0f, 1.0f } },  // TopLeft
+		{ {  0.5f,  0.5f,  0.5f, 1.0f },{ 0.5f, 0.0f, 0.0f, 1.0f } },  // TopRight
+		{ {  0.5f, -0.5f,  0.5f, 1.0f },{ 0.0f, 1.0f, 0.0f, 1.0f } },  // BottemRight
+
+		{ {  0.5f, -0.5f,  0.5f, 1.0f },{ 0.0f, 1.0f, 0.0f, 1.0f } },  // BottemRight
+		{ { -0.5f, -0.5f,  0.5f, 1.0f },{ 0.0f, 0.5f, 0.0f, 1.0f } },  // BottemLeft
+		{ { -0.5f,  0.5f,  0.5f, 1.0f },{ 1.0f, 0.0f, 0.0f, 1.0f } },   // TopLeft
+	};
 
 public:
-	virtual void CreateDeviceResources(ID3D11Device1* a_device) override {
+	virtual void CreateDeviceResources(ID3D11Device1* a_device, ID3D11DeviceContext1* a_context) override {
 		// Load and create shaders.
 		auto vertexShaderBlob = DX::ReadData(L"VertexShader.cso");
 
@@ -44,28 +61,57 @@ public:
 			a_device->CreateInputLayout(s_inputElementDesc, _countof(s_inputElementDesc), vertexShaderBlob.data(), vertexShaderBlob.size(), m_spInputLayout.ReleaseAndGetAddressOf())
 		);
 
-		// Create vertex buffer.
-		static const Vertex s_vertexData[3] = {
-			{ { 0.0f,   0.5f,  0.5f, 1.0f },{ 1.0f, 0.0f, 0.0f, 1.0f } },  // Top / Red
-			{ { 0.5f,  -0.5f,  0.5f, 1.0f },{ 0.0f, 1.0f, 0.0f, 1.0f } },  // Right / Green
-			{ { -0.5f, -0.5f,  0.5f, 1.0f },{ 0.0f, 0.0f, 1.0f, 1.0f } }   // Left / Blue
-		};
+		{
+			D3D11_SUBRESOURCE_DATA initialData = {};
+			initialData.pSysMem = m_vertexData;
 
-		D3D11_SUBRESOURCE_DATA initialData = {};
-		initialData.pSysMem = s_vertexData;
+			D3D11_BUFFER_DESC bufferDesc = {};
+			bufferDesc.ByteWidth = sizeof(m_vertexData);
+			bufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+			bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+			bufferDesc.StructureByteStride = sizeof(Vertex);
 
-		D3D11_BUFFER_DESC bufferDesc = {};
-		bufferDesc.ByteWidth = sizeof(s_vertexData);
-		bufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-		bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-		bufferDesc.StructureByteStride = sizeof(Vertex);
+			DX::ThrowIfFailed(
+				a_device->CreateBuffer(&bufferDesc, &initialData, m_spVertexBuffer.ReleaseAndGetAddressOf())
+			);
+		}
 
-		DX::ThrowIfFailed(
-			a_device->CreateBuffer(&bufferDesc, &initialData, m_spVertexBuffer.ReleaseAndGetAddressOf())
-		);
+		{
+			D3D11_BUFFER_DESC bufferDesc;
+			ZeroMemory(&bufferDesc, sizeof(bufferDesc));
+			bufferDesc.ByteWidth = sizeof(MatrixBuffer);
+			bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+			bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+			bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+			DX::ThrowIfFailed(a_device->CreateBuffer(&bufferDesc, nullptr, m_pConstantBuffer.ReleaseAndGetAddressOf()));
+
+			ID3D11Buffer* buffer[1] = { m_pConstantBuffer.Get() };
+			a_context->VSSetConstantBuffers(0, 1, buffer);
+		}
 	};
 
-	virtual void Render(ID3D11DeviceContext1* a_context, DirectX::FXMMATRIX a_world, DirectX::CXMMATRIX a_view, DirectX::CXMMATRIX a_projection) override {
+	virtual void CreateWindowSizeDependentResources(ID3D11Device1* a_device, SIZE a_windowSize) override {
+
+	}
+
+	virtual void Render(ID3D11Device1* a_device, ID3D11DeviceContext1* a_context, DirectX::FXMMATRIX a_world, DirectX::CXMMATRIX a_view, DirectX::CXMMATRIX a_projection) override {
+		MatrixBuffer updatedMatrixBuffer;
+		DirectX::XMStoreFloat4x4(&updatedMatrixBuffer.world, a_world);
+		DirectX::XMStoreFloat4x4(&updatedMatrixBuffer.view, a_view);
+		DirectX::XMStoreFloat4x4(&updatedMatrixBuffer.projection, a_projection);
+		
+		D3D11_MAPPED_SUBRESOURCE mappedResource;
+
+		// Lock the constant buffer so it can be written to.
+		a_context->Map(m_pConstantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+
+		if (SUCCEEDED(a_context->Map(m_pConstantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource))) {
+			*static_cast<MatrixBuffer*>(mappedResource.pData) = updatedMatrixBuffer;
+			a_context->Unmap(m_pConstantBuffer.Get(), 0);
+		}
+		
+		
 		a_context->IASetInputLayout(m_spInputLayout.Get());
 
 		UINT strides = sizeof(Vertex);
@@ -76,7 +122,7 @@ public:
 		a_context->VSSetShader(m_spVertexShader.Get(), nullptr, 0);
 		a_context->GSSetShader(nullptr, nullptr, 0);
 		a_context->PSSetShader(m_spPixelShader.Get(), nullptr, 0);
-		a_context->Draw(3, 0);
+		a_context->Draw(sizeof(m_vertexData), 0);
 	}
 };
 
