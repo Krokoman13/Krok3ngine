@@ -11,12 +11,9 @@ Mesh::Mesh(): m_vertices()
 }
 
 void Mesh::Load(std::wstring a_filename) {
-	//Logger::PrintLog(L"Loading: \s%", a_filename);
-
 	std::ifstream file(a_filename, std::ios::in);
 
 	if (!file.is_open()) {
-		//Logger::PrintWarning(L"Could not read: \s%", a_filename);
 		return;
 	}
 
@@ -28,7 +25,7 @@ void Mesh::Load(std::wstring a_filename) {
 	while (getline(file, line)) {
 		if (line.empty()) continue;
 
-		const std::vector<std::string> elemnts = split(line, ' ', 9);
+		const std::vector<std::string> elemnts = split(line, ' ', false, 9);
 		const std::string cmd = elemnts[0];
 
 		if (cmd == "#") continue;
@@ -65,7 +62,9 @@ void Mesh::Load(std::wstring a_filename) {
 
 		for (int i = 1; i < 4; ++i) {
 			Vertex vertex;
-			const std::vector<std::string> indices = split(elemnts[i], '/', 3);
+			const std::vector<std::string> indices = split(elemnts[i], '/', true, 3);
+
+			if (indices.size() < 3) continue;
 
 			try {
 				int positionIndx = std::stoi(indices[0]);
@@ -88,7 +87,6 @@ void Mesh::Load(std::wstring a_filename) {
 	}
 
 	file.close();
-	//Logger::PrintLog(L"\s is loaded", a_filename);
 }
 
 void Mesh::Initialize(ID3D11Device1* a_device) {
@@ -107,14 +105,15 @@ void Mesh::Initialize(ID3D11Device1* a_device) {
 	);
 }
 
-std::vector<std::string> Mesh::split(const std::string& str, char delimiter, unsigned int maxCount) {
+std::vector<std::string> Mesh::split(const std::string& a_string, char a_delimiter, bool a_returnEmpty, unsigned int a_maxCount) {
 	std::vector<std::string> tokens;
-	std::stringstream ss(str);
+	std::stringstream ss(a_string);
 	std::string token;
 
-	while (std::getline(ss, token, delimiter)) {
+	while (std::getline(ss, token, a_delimiter)) {
+		if (token.empty() && !a_returnEmpty) continue;
 		tokens.push_back(token);
-		if (tokens.size() == maxCount) break;
+		if (tokens.size() == a_maxCount) break;
 	} 
 
 	return tokens;
