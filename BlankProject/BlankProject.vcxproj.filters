@@ -39,10 +39,10 @@
     <ClInclude Include="Source\BlankProject.h">
       <Filter>Source\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ReadData.h">
-      <Filter>Source\Private</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Mesh.h">
+      <Filter>Source\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ReadData.h">
       <Filter>Source\Public</Filter>
     </ClInclude>
   </ItemGroup>

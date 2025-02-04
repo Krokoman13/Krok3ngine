@@ -24,65 +24,71 @@ void Mesh::Load(std::wstring a_filename) {
 	std::string line;
 	while (getline(file, line)) {
 		if (line.empty()) continue;
+		std::stringstream lineStream(line);
+	
+		char cmd[3]{'\0', '\0', '\0' };
+		lineStream >> cmd[0];
+		if (line[1] != ' ') lineStream >> cmd[1];
 
-		const std::vector<std::string> elemnts = split(line, ' ', false, 9);
-		const std::string cmd = elemnts[0];
+		if (cmd[0] == '#') continue;
 
-		if (cmd == "#") continue;
+		float values[3] = {0, 0, 0};
 
-		if (cmd == "v" && elemnts.size() >= 4) {
+		if (strcmp(cmd, "v") == 0) {
 			DirectX::XMFLOAT3 position;
-			position.x = std::stof(elemnts[1]);
-			position.y = std::stof(elemnts[2]);
-			position.z = std::stof(elemnts[3]);
-			positions.push_back(position);
-			continue;
-		}
-
-		if (cmd == "vn" && elemnts.size() >= 4) {
-			DirectX::XMFLOAT3 normal;
-			normal.x = std::stof(elemnts[1]);
-			normal.y = std::stof(elemnts[2]);
-			normal.z = std::stof(elemnts[3]);
-			normals.push_back(normal);
-			continue;
-		}
-
-		if (cmd == "vt" && elemnts.size() >= 3) {
-			DirectX::XMFLOAT2 uv;
-			uv.x = std::stof(elemnts[1]);
-			uv.y = std::stof(elemnts[2]);
-			uvs.push_back(uv);
-			continue;
-		}
-
-		if (cmd != "f" || elemnts.size() < 4) {
-			continue;
-		}
-
-		for (int i = 1; i < 4; ++i) {
-			Vertex vertex;
-			const std::vector<std::string> indices = split(elemnts[i], '/', true, 3);
-
-			if (indices.size() < 3) continue;
-
-			try {
-				int positionIndx = std::stoi(indices[0]);
-				if (positionIndx > 0) vertex.position = positions[positionIndx - 1];
-			} catch (const std::invalid_argument& e) {}
-
-			try {
-				int uvIndx = std::stoi(indices[1]);
-				if (uvIndx > 0) vertex.uv = uvs[uvIndx - 1];
+			if (lineStream >> position.x >> position.y >> position.z) {
+				positions.push_back(position);
+				continue;
 			}
-			catch (const std::invalid_argument& e) {}
+		}
 
-			try {
-				int normalIndx = std::stoi(indices[2]);
-				if (normalIndx > 0) vertex.normal = normals[normalIndx - 1];
-			} catch (const std::invalid_argument& e) {}
+		if (strcmp(cmd, "vn") == 0) {
+			DirectX::XMFLOAT3 normal;
+			if (lineStream >> normal.x >> normal.y >> normal.z) {
+				normals.push_back(normal);
+				continue;
+			}
+		}
 
-			m_vertices.push_back(vertex);
+		if (strcmp(cmd, "vt") == 0) {
+			DirectX::XMFLOAT2 uv;
+			if (lineStream >> uv.x >> uv.y) {
+				uvs.push_back(uv);
+				continue;
+			}
+		}
+
+		if (strcmp(cmd, "f") == 0) {
+			Vertex face[4];
+			bool fourthVector = false;
+
+			std::string vertex;
+			for (unsigned int i = 0; i < 4; i++) {
+				if (!(lineStream >> vertex)) break;
+				std::stringstream verexStream(vertex);
+
+				std::string value;
+				if (!std::getline(verexStream, value, '/') || value.empty()) break;
+				face[i].position = positions[stoi(value) - 1];
+
+				if (std::getline(verexStream, value, '/') && !value.empty()) {
+					face[i].uv = uvs[stoi(value) - 1];
+				}
+
+				unsigned int normalIndex;
+				if (verexStream >> normalIndex) {
+					face[i].normal = normals[normalIndex - 1];
+				}
+
+				if (i == 3) fourthVector = true;
+			}
+
+			for (unsigned int i = 0; i < 3; i++) m_vertices.push_back(face[i]);
+			if (fourthVector) { // In case there is a fourth vector in the face, create a new triangle
+				m_vertices.push_back(face[2]);
+				m_vertices.push_back(face[3]);
+				m_vertices.push_back(face[0]);
+			}
 		}
 	}
 
@@ -103,6 +109,8 @@ void Mesh::Initialize(ID3D11Device1* a_device) {
 	DX::ThrowIfFailed(
 		a_device->CreateBuffer(&bufferDesc, &initialData, m_spVertexBuffer.ReleaseAndGetAddressOf())
 	);
+
+	m_vertices.clear();
 }
 
 std::vector<std::string> Mesh::split(const std::string& a_string, char a_delimiter, bool a_returnEmpty, unsigned int a_maxCount) {
@@ -118,6 +126,3 @@ std::vector<std::string> Mesh::split(const std::string& a_string, char a_delimit
 
 	return tokens;
 }
-
-
-

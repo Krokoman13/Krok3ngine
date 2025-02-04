@@ -21,7 +21,7 @@ public:
 	ID3D11Buffer** GetVertexBufferAddress() { return m_spVertexBuffer.GetAddressOf(); };
 
 private:
-	std::vector<std::string> split(const std::string& str, char delimiter, unsigned int maxCount = 0); //Todo: Move this to a file management class
+	std::vector<std::string> split(const std::string& a_string, char a_delimiter, bool a_returnEmpty, unsigned int a_maxCount = 0); //Todo: Move this to a file management class
 
 private:
 	std::vector<Vertex> m_vertices;
