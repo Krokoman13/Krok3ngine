@@ -7,7 +7,7 @@
 class BlankProject : public Krok3ngine::Simulation {
 public:
 	BlankProject() { 
-		mesh = std::make_unique<Engine::BasicMesh>("Content/Models/dragon/Dragon.obj");
+		mesh = std::make_unique<Engine::BasicMesh>("Content/Models/dragon/dragon.obj");
 		AddRenderObject(mesh.get());
 	};
 	~BlankProject() {};
