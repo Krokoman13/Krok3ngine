@@ -103,39 +103,23 @@ namespace Engine {
 		void afterLoad() {
 			if (m_vertices.empty()) throw Exception::Warning("Emtpy Mesh, does not contain vertices", 5);
 
-			{
-				D3D11_SUBRESOURCE_DATA initialData = {};
-				const VertexData* vertexData = m_vertices.data();
-				initialData.pSysMem = vertexData;
-
-				D3D11_BUFFER_DESC bufferDesc = {};
-				bufferDesc.ByteWidth = sizeof(vertexData);
-				bufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-				bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-				bufferDesc.StructureByteStride = sizeof(VertexData);
-
-				DX::ThrowIfFailed(
-					m_pRenderer->GetDevice()->CreateBuffer(&bufferDesc, &initialData, m_spVertexBuffer.ReleaseAndGetAddressOf())
-				);
-			}
-
 			m_vertexCount = m_vertices.size();
+
+			D3D11_SUBRESOURCE_DATA initialData = {};
+			const VertexData* vertexData = m_vertices.data();
+			initialData.pSysMem = vertexData;
+
+			D3D11_BUFFER_DESC bufferDesc = {};
+			bufferDesc.ByteWidth = sizeof(VertexData) * m_vertexCount;
+			bufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+			bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+			bufferDesc.StructureByteStride = sizeof(VertexData);
+
+			DX::ThrowIfFailed(
+				m_pRenderer->GetDevice()->CreateBuffer(&bufferDesc, &initialData, m_spVertexBuffer.ReleaseAndGetAddressOf())
+			);
+
 			m_vertices.clear();
-
-			{
-				D3D11_SUBRESOURCE_DATA initialData = {};
-				initialData.pSysMem = m_vertices.data();
-
-				D3D11_BUFFER_DESC bufferDesc = {};
-				bufferDesc.ByteWidth = sizeof(VertexData) * m_vertexCount;
-				bufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-				bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-				bufferDesc.StructureByteStride = sizeof(VertexData);
-
-				DX::ThrowIfFailed(
-					m_pRenderer->GetDevice()->CreateBuffer(&bufferDesc, &initialData, m_spVertexBuffer.GetAddressOf())
-				);
-			}
 		}
 
 	protected:

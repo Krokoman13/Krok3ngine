@@ -17,7 +17,7 @@ namespace Engine {
 
 	class KROK3NGINE_API BasicMaterial : public Material<BasicVertex> {
 	public:
-		BasicMaterial() : Material(L"VertexShader.cso", L"PixelShader.cso") {}
+		BasicMaterial() : Material(L"BasicVertexShader.cso", L"BasicPixelShader.cso") {}
 	};
 
 	class KROK3NGINE_API BasicMesh : public Mesh<BasicVertex> {

@@ -39,12 +39,6 @@
     <ClInclude Include="Source\BlankProject.h">
       <Filter>Source\Public</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Mesh.h">
-      <Filter>Source\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ReadData.h">
-      <Filter>Source\Public</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BlankProject.rc">
@@ -63,15 +57,12 @@
     <ClCompile Include="Source\BlankProject.cpp">
       <Filter>Source\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Mesh.cpp">
-      <Filter>Source\Private</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Content\Shaders\PixelShader.hlsl">
+    <FxCompile Include="Content\Shaders\BasicPixelShader.hlsl">
       <Filter>Resources\Shaders\PixelShaders</Filter>
     </FxCompile>
-    <FxCompile Include="Content\Shaders\VertexShader.hlsl">
+    <FxCompile Include="Content\Shaders\BasicVertexShader.hlsl">
       <Filter>Resources\Shaders\VertexShaders</Filter>
     </FxCompile>
   </ItemGroup>
