@@ -5,7 +5,7 @@
 
 extern Win32::IApplication* EntryApplication();
 
-INT CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
+int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	Logger logger;
 
@@ -16,8 +16,8 @@ INT CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, INT)
 
 	CmdLineArgs::ReadArguments();
 
-	entryApp->PreInitialize();
 	entryApp->Initialize();
+	entryApp->Load();
 
 	MSG msg = { 0 };
 	while (msg.message != WM_QUIT) {

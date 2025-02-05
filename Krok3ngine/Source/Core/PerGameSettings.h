@@ -18,16 +18,16 @@ private:
 
 public:
 	static WCHAR* GameName() { return m_inst->m_gameName; }
-	static VOID SetGameName(UINT id) { LoadString(HInstance(), id, m_inst->m_gameName, MAX_NAME_STRING); }
+	static void SetGameName(UINT id) { LoadString(HInstance(), id, m_inst->m_gameName, MAX_NAME_STRING); }
 
 	static WCHAR* ShortName() { return m_inst->m_shortName; }
-	static VOID SetShortName(UINT id) { LoadString(HInstance(), id, m_inst->m_shortName, MAX_NAME_STRING); }
+	static void SetShortName(UINT id) { LoadString(HInstance(), id, m_inst->m_shortName, MAX_NAME_STRING); }
 
 	static HICON MainIcon() { return m_inst->m_mainIcon; }
-	static VOID SetMainIcon(UINT id) { LoadIcon(HInstance(), MAKEINTRESOURCE(id)); }
+	static void SetMainIcon(UINT id) { LoadIcon(HInstance(), MAKEINTRESOURCE(id)); }
 
 	static WCHAR* BootTime() { return m_inst->m_bootTime; }
 
 	static WCHAR* SplashURL() { return m_inst->m_splashURL; }
-	static VOID SetSplashURL(UINT id) { LoadString(HInstance(), id, m_inst->m_splashURL, MAX_NAME_STRING); }
+	static void SetSplashURL(UINT id) { LoadString(HInstance(), id, m_inst->m_splashURL, MAX_NAME_STRING); }
 };

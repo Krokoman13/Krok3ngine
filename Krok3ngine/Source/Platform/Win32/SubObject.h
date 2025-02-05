@@ -1,36 +1,30 @@
 #pragma once
 
 namespace Win32 {
-	class KROK3NGINE_API SubObject {
+	class KROK3NGINE_API SubObject : public Engine::InitializableObject<> {
 	public:
-		SubObject(const std::wstring& a_className, const std::wstring& a_classTitle, HICON a_hIcon = NULL);
+		SubObject(const wchar_t* a_className, const wchar_t* a_classTitle, HICON a_hIcon = NULL);
 		~SubObject();
 
 	public:
-		virtual VOID RegisterNewClass();
-		virtual VOID Initialize() = 0;
+		void RegisterNewClass();
 
 	protected:
+		void baseInitialize() { RegisterNewClass(); };
 		static LRESULT CALLBACK SetupMessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wparam, LPARAM a_lparam);
 		static LRESULT AssignMessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wparam, LPARAM a_lparam);
 		virtual LRESULT MessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wparam, LPARAM a_lparam);
 		
 	public:
-		VOID SetClass(const std::wstring& a_className);
-		std::wstring GetClass();
-		VOID SetTitle(const std::wstring& a_classTitle);
-		std::wstring GetTitle();
-
-		HWND GetHandle() { return handle; }
+		const wchar_t* GetClass() { return m_class; };
+		const wchar_t* GetTitle() { return m_title; };
+		HWND GetHandle() { return m_handle; }
 
 	private:
-		VOID setHandle(HWND a_handle) { handle = a_handle; }
-
-	private:
-		std::wstring m_class;
-		std::wstring m_title;
+		const wchar_t* m_class;
+		const wchar_t* m_title;
 
 		HICON m_hIcon;
-		HWND handle;		
+		HWND m_handle;		
 	};
 }

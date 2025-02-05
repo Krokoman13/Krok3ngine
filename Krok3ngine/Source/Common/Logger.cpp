@@ -6,6 +6,7 @@
 Logger* Logger::m_inst;
 
 Logger::Logger() {
+	if (m_inst) return;
 	m_inst = this;
 }
 
@@ -24,7 +25,7 @@ void Logger::PrintLog(const WCHAR* fmt, ...) {
 	log(s.c_str());
 }
 
-VOID Logger::PrintWarning(const WCHAR* fmt, ...)
+void Logger::PrintWarning(const WCHAR* fmt, ...)
 {
 	WCHAR buf[4096];
 	va_list args;
@@ -40,7 +41,7 @@ VOID Logger::PrintWarning(const WCHAR* fmt, ...)
 	log(s.c_str());
 }
 
-VOID Logger::PrintError(const WCHAR* fmt, ...)
+void Logger::PrintError(const WCHAR* fmt, ...)
 {
 	WCHAR buf[4096];
 	va_list args;
@@ -60,7 +61,7 @@ VOID Logger::PrintError(const WCHAR* fmt, ...)
 	log(s.c_str());
 }
 
-VOID Logger::log(const WCHAR* a_str)
+void Logger::log(const WCHAR* a_str)
 {
 	if (a_str == nullptr) return;
 
@@ -106,7 +107,7 @@ std::wstring Logger::LogFile()
 	return file;
 }
 
-VOID Logger::PrintDebugSeperator()
+void Logger::PrintDebugSeperator()
 {
 	std::wstring s = L"\n------------------------------------------------------------------------------------\n\n";
 	log(s.c_str());

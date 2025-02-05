@@ -13,11 +13,11 @@ namespace Win32 {
 	public:
 		struct CaptionButton {
 			std::wstring text = L"x";
-			INT width;
-			INT command = -1;
+			int width;
+			int command = -1;
 			RECT rect = RECT{};
 
-			CaptionButton(std::wstring a_text, INT a_command, INT a_width = 50) {
+			CaptionButton(std::wstring a_text, int a_command, int a_width = 50) {
 				text = a_text;
 				width = a_width;
 				command = a_command;
@@ -25,14 +25,14 @@ namespace Win32 {
 		};
 
 	public:
-		VOID CreateAndAddCaptionButton(std::wstring a_text, INT a_command, INT a_width = 50);
+		void CreateAndAddCaptionButton(std::wstring a_text, int a_command, int a_width = 50);
 		const std::list<CaptionButton*>& GetCaptionButtons() { return m_captionButtons; };
 
-		VOID SetShowTitle(BOOL a_ShowTitle) { m_showTitle = a_ShowTitle; }
-		BOOL GetShowTitle() { return m_showTitle; }
+		void SetShowTitle(bool a_ShowTitle) { m_showTitle = a_ShowTitle; }
+		bool GetShowTitle() { return m_showTitle; }
 
 	private:
-		BOOL m_showTitle = TRUE;
+		bool m_showTitle = TRUE;
 		std::list<CaptionButton*> m_captionButtons;
 	};
 }

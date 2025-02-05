@@ -7,7 +7,7 @@
 #define DCX_USESTYLE 0x00010000
 
 namespace Win32 {
-	Window::Window(std::wstring a_title, WindowType a_type, HICON a_hIcon)
+	Window::Window(const wchar_t* a_title, WindowType a_type, HICON a_hIcon)
 		: SubObject(a_title, a_title, a_hIcon), m_type(a_type) {
 		SetSize(DEFAULTWIDTH, DEFAULTHEIGHT);
 	}
@@ -15,7 +15,9 @@ namespace Win32 {
 	Window::~Window() {
 	}
 
-	VOID Window::Initialize() {
+	void Window::baseInitialize() {
+		RegisterNewClass();
+
 		RECT desktop;
 		const HWND hDesktop = GetDesktopWindow();
 		GetWindowRect(hDesktop, &desktop);
@@ -25,7 +27,7 @@ namespace Win32 {
 		int width = r.right - r.left;
 		int heigth = r.bottom - r.top;
 
-		HWND handle = CreateWindow(GetClass().c_str(), GetTitle().c_str(),
+		HWND handle = CreateWindow(GetClass(), GetTitle(),
 			m_type, (desktop.right - m_size.cx) / 2, (desktop.bottom - m_size.cy) / 2, m_size.cx, m_size.cy, 0, 0, HInstance(), (void*)this);
 
 		ShowWindow(handle, SW_SHOW);
@@ -51,7 +53,7 @@ namespace Win32 {
 		return SubObject::MessageHandler(a_hWnd, a_message, a_wparam, a_lparam);;
 	}
 
-	VOID Window::onNonClientCreate() {
+	void Window::onNonClientCreate() {
 		SetTimer(GetHandle(), 1, 100, NULL);
 		SetWindowTheme(GetHandle(), L"", L"");
 		Win32::Utils::ModifyClassStyle(GetHandle(), 0, CS_DROPSHADOW);
@@ -61,11 +63,11 @@ namespace Win32 {
 		Win32::Caption::CreateAndAddCaptionButton(L"🗕", CB_MINIMIZE, 30);
 	}
 
-	VOID Window::onNonClientActive(BOOL a_active) {
+	void Window::onNonClientActive(bool a_active) {
 		SetFocused(a_active);
 	}
 
-	VOID Window::onNonClientPaint(HRGN a_hRegion) {
+	void Window::onNonClientPaint(HRGN a_hRegion) {
 		// start draw
 		HDC hdc = GetDCEx(GetHandle(), a_hRegion, DCX_WINDOW | DCX_INTERSECTRGN | DCX_USESTYLE);
 
@@ -102,13 +104,13 @@ namespace Win32 {
 		ReleaseDC(GetHandle(), hdc);
 	}
 
-	VOID Window::redrawWindow() {
+	void Window::redrawWindow() {
 		SetWindowPos(GetHandle(), 0, 0, 0, 0, 0,
 			SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_DRAWFRAME | SWP_FRAMECHANGED); // reset window
 		SendMessage(GetHandle(), WM_PAINT, 0, 0);
 	};
 
-	VOID Window::paintCaption(HDC a_hdc) {
+	void Window::paintCaption(HDC a_hdc) {
 		RECT rect;
 		GetWindowRect(GetHandle(), &rect);
 
@@ -120,12 +122,12 @@ namespace Win32 {
 			SetBkMode(a_hdc, TRANSPARENT);
 			SetTextColor(a_hdc, GetFocused() ? RGB(255, 255, 255) : RGB(128, 128, 128));
 
-			DrawText(a_hdc, GetTitle().c_str(), wcslen(GetTitle().c_str()), &rect, DT_SINGLELINE | DT_VCENTER | DT_CENTER);
+			DrawText(a_hdc, GetTitle(), wcslen(GetTitle()), &rect, DT_SINGLELINE | DT_VCENTER | DT_CENTER);
 		}
 
-		INT margin = 5;
-		INT padding = 0;
-		INT spacing = margin;
+		int margin = 5;
+		int padding = 0;
+		int spacing = margin;
 
 		POINT cursorPos;
 		GetCursorPos(&cursorPos);
@@ -158,7 +160,7 @@ namespace Win32 {
 		}
 	}
 
-	VOID Window::onNonClientLeftMouseButtonDown() {
+	void Window::onNonClientLeftMouseButtonDown() {
 		POINT cursorPos;
 		GetCursorPos(&cursorPos);
 
@@ -181,7 +183,7 @@ namespace Win32 {
 		}
 	};
 
-	VOID Window::onGetMinMaxInfo(MINMAXINFO* minmax) {
+	void Window::onGetMinMaxInfo(MINMAXINFO* minmax) {
 		RECT WorkArea; SystemParametersInfo(SPI_GETWORKAREA, 0, &WorkArea, 0);
 		minmax->ptMaxSize.x = (WorkArea.right - WorkArea.left);
 		minmax->ptMaxSize.y = (WorkArea.bottom - WorkArea.top);
@@ -191,7 +193,7 @@ namespace Win32 {
 		minmax->ptMinTrackSize.y = 300;
 	}
 
-	VOID Window::onExitSizeMove() {
+	void Window::onExitSizeMove() {
 		RECT rect;
 		GetWindowRect(GetHandle(), &rect);
 		RECT workArea;
@@ -201,7 +203,7 @@ namespace Win32 {
 		}
 	}
 
-	VOID  Window::onPaint() {
+	void  Window::onPaint() {
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(GetHandle(), &ps);
 

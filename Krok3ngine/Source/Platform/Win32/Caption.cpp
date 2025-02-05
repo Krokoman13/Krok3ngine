@@ -12,7 +12,7 @@ namespace Win32 {
 		}
 	}
 
-	VOID Caption::CreateAndAddCaptionButton(std::wstring a_text, INT a_command, INT a_width) {
+	void Caption::CreateAndAddCaptionButton(std::wstring a_text, int a_command, int a_width) {
 		m_captionButtons.push_back(new CaptionButton(a_text, a_command, a_width));
 	}
 }

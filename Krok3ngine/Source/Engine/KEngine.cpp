@@ -3,7 +3,7 @@
 namespace Engine {
 	KEngine g_krok3ngine;
 
-	VOID SetMode(EngineMode a_engineMode) {
+	void SetMode(EngineMode a_engineMode) {
 		g_krok3ngine.SetEngineMode(a_engineMode);
 	}
 
@@ -26,7 +26,7 @@ namespace Engine {
 
 KEngine::KEngine() {
 #ifdef _DEBUG
-	m_engineMode = EngineMode::DEBUG;
+	m_engineMode = Engine::EngineMode::DEBUG;
 #else
 	m_engineMode = EngineMode::RELEASE;
 #endif // _DEBUG
@@ -35,10 +35,10 @@ KEngine::KEngine() {
 KEngine::~KEngine() {
 }
 
-EngineMode KEngine::GetEngineMode() {
+Engine::EngineMode KEngine::GetEngineMode() {
 	return m_engineMode;
 }
 
-VOID KEngine::SetEngineMode(EngineMode a_enginemode) {
+void KEngine::SetEngineMode(Engine::EngineMode a_enginemode) {
 	m_engineMode = a_enginemode;
 }

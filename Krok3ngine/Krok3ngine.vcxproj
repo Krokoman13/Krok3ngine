@@ -93,14 +93,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Common\CmdLineArgs.cpp" />
+    <ClCompile Include="Source\Common\Colors.cpp" />
+    <ClCompile Include="Source\Common\Exceptions.cpp" />
     <ClCompile Include="Source\Common\Logger.cpp" />
     <ClCompile Include="Source\Common\Time.cpp" />
     <ClCompile Include="Source\Core\Core.cpp" />
     <ClCompile Include="Source\Core\CoreMinimal.cpp" />
     <ClCompile Include="Source\Core\PerGameSettings.cpp" />
-    <ClCompile Include="Source\DirectX\DirectXManager.cpp" />
-    <ClCompile Include="Source\DirectX\IRenderObject.cpp" />
+    <ClCompile Include="Source\DirectX\Renderer.cpp" />
+    <ClCompile Include="Source\Engine\Essentials\Transform.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\BasicMesh.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\RenderObject.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\Camera.cpp" />
     <ClCompile Include="Source\Engine\KEngine.cpp" />
+    <ClCompile Include="Source\Engine\KEngineObject.cpp" />
     <ClCompile Include="Source\Engine\Simulation.cpp" />
     <ClCompile Include="Source\Engine\SplashScreen.cpp" />
     <ClCompile Include="Source\Krok3ngine.cpp" />
@@ -112,15 +118,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Common\CmdLineArgs.h" />
+    <ClInclude Include="Source\Common\Colors.h" />
+    <ClInclude Include="Source\Common\Events.h" />
+    <ClInclude Include="Source\Common\Exceptions.h" />
     <ClInclude Include="Source\Common\Logger.h" />
+    <ClInclude Include="Source\Common\ReadFile.h" />
     <ClInclude Include="Source\Common\Time.h" />
     <ClInclude Include="Source\Core\Core.h" />
     <ClInclude Include="Source\Core\CoreMinimal.h" />
     <ClInclude Include="Source\Core\PerGameSettings.h" />
     <ClInclude Include="Source\DirectX\DirectX.h" />
-    <ClInclude Include="Source\DirectX\DirectXManager.h" />
+    <ClInclude Include="Source\DirectX\Renderer.h" />
     <ClInclude Include="Source\DirectX\IRenderObject.h" />
+    <ClInclude Include="Source\Engine\Essentials\Transform.h" />
+    <ClInclude Include="Source\Engine\Graphics\BasicMesh.h" />
+    <ClInclude Include="Source\Engine\Graphics\RenderObject.h" />
+    <ClInclude Include="Source\Engine\Graphics\Camera.h" />
     <ClInclude Include="Source\Engine\KEngine.h" />
+    <ClInclude Include="Source\Engine\KEngineObject.h" />
     <ClInclude Include="Source\Engine\Simulation.h" />
     <ClInclude Include="Source\Engine\SplashScreen.h" />
     <ClInclude Include="Source\Krok3ngine.h" />

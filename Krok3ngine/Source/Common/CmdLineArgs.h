@@ -1,6 +1,6 @@
 #pragma once
 
 namespace CmdLineArgs {
-	VOID KROK3NGINE_API ReadArguments();
-	VOID KROK3NGINE_API ReadArgument(const WCHAR* argument);
+	void KROK3NGINE_API ReadArguments();
+	void KROK3NGINE_API ReadArgument(const WCHAR* argument);
 }

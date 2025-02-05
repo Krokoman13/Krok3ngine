@@ -1,18 +1,26 @@
 #pragma once
 
-#include "DirectX/DirectXManager.h"
+#include "DirectX/Renderer.h"
 
 namespace Krok3ngine {
-	class KROK3NGINE_API Simulation : public Win32::IApplication, public DX::DirectXManager {
+	class KROK3NGINE_API Simulation : public Win32::IApplication {
 	public:
 		Simulation();
 		~Simulation();
 
-	public:
-		VOID PreInitialize() override;
-		VOID Initialize() override;
-		VOID Update() override;
+	protected:
+		void baseInitialize() override;
+		void baseLoad() override;
+		void baseUpdate() override;
 
-		virtual LRESULT MessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wparam, LPARAM a_lparam) override;
+		void AddRenderObject(DX::IRenderObject* a_renderObject) {
+			m_renderer.AddRenderObject(a_renderObject);
+		}
+
+	protected:
+		Win32::Window m_window;
+
+	private:
+		DX::Renderer m_renderer;
 	};
 }

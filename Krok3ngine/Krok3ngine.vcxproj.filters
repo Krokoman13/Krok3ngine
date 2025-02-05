@@ -47,15 +47,6 @@
     <Filter Include="Source\Engine">
       <UniqueIdentifier>{d497be46-49a2-466f-a3af-12de4424e4de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Engine\Public">
-      <UniqueIdentifier>{1d744b2b-9aa6-4b5c-acbc-eae30b648e81}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Private">
-      <UniqueIdentifier>{e9e6ea9d-446b-4015-87e3-a9718a413154}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Engine\Classes">
-      <UniqueIdentifier>{c27859d2-30b3-4701-8dbc-964ec763b412}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Platform\Win32\Classes">
       <UniqueIdentifier>{cb75509c-a3bf-415e-87d2-2d5bf0338970}</UniqueIdentifier>
     </Filter>
@@ -70,6 +61,36 @@
     </Filter>
     <Filter Include="Source\DirectX\Public">
       <UniqueIdentifier>{f51aafbf-5467-4f3b-bd7a-2fc8babca09e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Graphics">
+      <UniqueIdentifier>{e6ef68d5-aea7-4133-86e2-398aacbc825a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Graphics\Classes">
+      <UniqueIdentifier>{b909201d-2e6c-407d-9c24-f807a87018f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Graphics\Private">
+      <UniqueIdentifier>{9dedd00e-2e4c-4ccf-a368-69fc62ccec3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Engine">
+      <UniqueIdentifier>{bf20e129-723d-4045-a5de-3d41df649071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Engine\Classes">
+      <UniqueIdentifier>{c27859d2-30b3-4701-8dbc-964ec763b412}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Engine\Private">
+      <UniqueIdentifier>{e9e6ea9d-446b-4015-87e3-a9718a413154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Engine\Public">
+      <UniqueIdentifier>{1d744b2b-9aa6-4b5c-acbc-eae30b648e81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Essentials">
+      <UniqueIdentifier>{def9a557-d2c4-4d70-b8a9-8663c3c5cf95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Essentials\Classes">
+      <UniqueIdentifier>{43b91ba1-55a0-445d-9991-390a2acaff1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Essentials\Private">
+      <UniqueIdentifier>{2cf9a565-9e3a-4f41-ac13-14ad71c998fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -95,16 +116,16 @@
       <Filter>Source\Core\Private</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\Simulation.cpp">
-      <Filter>Source\Engine\Private</Filter>
+      <Filter>Source\Engine\Engine\Private</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\KEngine.cpp">
-      <Filter>Source\Engine\Private</Filter>
+      <Filter>Source\Engine\Engine\Private</Filter>
     </ClCompile>
     <ClCompile Include="Source\Common\CmdLineArgs.cpp">
       <Filter>Source\Common\Private</Filter>
     </ClCompile>
     <ClCompile Include="Source\Engine\SplashScreen.cpp">
-      <Filter>Source\Engine\Private</Filter>
+      <Filter>Source\Engine\Engine\Private</Filter>
     </ClCompile>
     <ClCompile Include="Source\Platform\Win32\Window.cpp">
       <Filter>Source\Platform\Win32\Private</Filter>
@@ -118,11 +139,27 @@
     <ClCompile Include="Source\Platform\Win32\Caption.cpp">
       <Filter>Source\Platform\Win32\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DirectX\DirectXManager.cpp">
+    <ClCompile Include="Source\DirectX\Renderer.cpp">
       <Filter>Source\DirectX\Private</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DirectX\IRenderObject.cpp">
-      <Filter>Source\DirectX\Private</Filter>
+    <ClCompile Include="Source\Engine\KEngineObject.cpp">
+      <Filter>Source\Engine\Engine\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\Exceptions.cpp">
+      <Filter>Source\Common\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\Colors.cpp" />
+    <ClCompile Include="Source\Engine\Graphics\Camera.cpp">
+      <Filter>Source\Engine\Graphics\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Essentials\Transform.cpp">
+      <Filter>Source\Engine\Essentials\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Graphics\RenderObject.cpp">
+      <Filter>Source\Engine\Graphics\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Engine\Graphics\BasicMesh.cpp">
+      <Filter>Source\Engine\Graphics\Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,10 +185,10 @@
       <Filter>Source\Core\Public</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\KEngine.h">
-      <Filter>Source\Engine\Classes</Filter>
+      <Filter>Source\Engine\Engine\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\Simulation.h">
-      <Filter>Source\Engine\Classes</Filter>
+      <Filter>Source\Engine\Engine\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Source\Platform\WIN32\IApplication.h">
       <Filter>Source\Platform\Win32\Classes</Filter>
@@ -160,7 +197,7 @@
       <Filter>Source\Common\Public</Filter>
     </ClInclude>
     <ClInclude Include="Source\Engine\SplashScreen.h">
-      <Filter>Source\Engine\Public</Filter>
+      <Filter>Source\Engine\Engine\Public</Filter>
     </ClInclude>
     <ClInclude Include="Source\Platform\Win32\Window.h">
       <Filter>Source\Platform\Win32\Classes</Filter>
@@ -174,7 +211,7 @@
     <ClInclude Include="Source\Platform\Win32\Caption.h">
       <Filter>Source\Platform\Win32\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DirectX\DirectXManager.h">
+    <ClInclude Include="Source\DirectX\Renderer.h">
       <Filter>Source\DirectX\Classes</Filter>
     </ClInclude>
     <ClInclude Include="Source\DirectX\DirectX.h">
@@ -182,6 +219,31 @@
     </ClInclude>
     <ClInclude Include="Source\DirectX\IRenderObject.h">
       <Filter>Source\DirectX\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Common\Events.h">
+      <Filter>Source\Common\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\KEngineObject.h">
+      <Filter>Source\Engine\Engine\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Common\Exceptions.h">
+      <Filter>Source\Common\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Common\Colors.h" />
+    <ClInclude Include="Source\Common\ReadFile.h">
+      <Filter>Source\Common\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Graphics\Camera.h">
+      <Filter>Source\Engine\Graphics\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Essentials\Transform.h">
+      <Filter>Source\Engine\Essentials\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Graphics\RenderObject.h">
+      <Filter>Source\Engine\Graphics\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Engine\Graphics\BasicMesh.h">
+      <Filter>Source\Engine\Graphics\Classes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

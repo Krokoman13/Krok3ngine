@@ -1,30 +1,48 @@
 #pragma once
 
 namespace DX {
-	class KROK3NGINE_API IRenderObject {
+	class KROK3NGINE_API Renderer;
+
+	class KROK3NGINE_API IRenderObject : public Engine::Transform {
 	public:
-		virtual void CreateDeviceResources(ID3D11Device1* a_device, ID3D11DeviceContext1* a_context) = 0;
-		virtual void CreateWindowSizeDependentResources(ID3D11Device1* a_device, SIZE a_windowSize) {};
-		virtual void Render(ID3D11Device1* a_device, ID3D11DeviceContext1* a_context, DirectX::FXMMATRIX a_world, DirectX::CXMMATRIX a_view, DirectX::CXMMATRIX a_projection) = 0;
+		void Initialize(Renderer* a_pRenderer) { m_pRenderer = a_pRenderer; };
+		virtual void Load() = 0;
+		virtual void Render() = 0;
+
+	protected:
+		Renderer* m_pRenderer;
 	};
 
-	class KROK3NGINE_API DirectXManager : public Win32::Window {
+	//Todo: Move Device managment to another class
+	//Todo: Update Renderer accordingly when the window gets resized
+	class KROK3NGINE_API Renderer {
 	public:
-		DirectXManager();
-		void Initialize() override;
+		Renderer();
+
+	public:
+		void Initialize(Win32::Window* a_pWindow);
 		void Render();
 
-		void AddRenderObject(IRenderObject* a_renderObject) { m_renderObjects.push_back(a_renderObject); }
+		void AddRenderObject(IRenderObject* a_renderObject) { 
+			a_renderObject->Initialize(this);
+			m_toLoad.push_back(a_renderObject); 
+		}
+
+	public:
+		ID3D11Device1* GetDevice() { return m_d3dDevice.Get(); }
+		ID3D11DeviceContext1* GetContext() { return m_d3dContext.Get(); }
 
 	protected:
 		void createDeviceResources();
 		void createWindowSizeDependentResources();
 
 	private:
-		std::vector<IRenderObject*> m_renderObjects;
-		DirectX::XMMATRIX m_world;
-		DirectX::XMMATRIX m_view;
-		DirectX::XMMATRIX m_proj;
+		Win32::Window* m_pWindow = nullptr;
+		std::vector<IRenderObject*> m_toLoad;
+		std::vector<IRenderObject*> m_toRender;
+
+		//Todo: Move constant buffer to a more appropriate class
+		Microsoft::WRL::ComPtr<ID3D11Buffer>			m_pConstantBuffer;
 
 	private:
 		DXGI_FORMAT m_backBufferFormat = DXGI_FORMAT_B8G8R8A8_UNORM;

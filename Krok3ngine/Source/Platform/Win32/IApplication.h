@@ -3,16 +3,13 @@
 #define ENTRYAPP(x) Win32::IApplication* EntryApplication() { return new x; }
 
 namespace Win32 {
-	class KROK3NGINE_API IApplication {
+	class KROK3NGINE_API IApplication : public Engine::KEngineObject<> {
 	public:
 		IApplication();
 		virtual ~IApplication() {};
 
 	public:
-		virtual VOID SetupPerGameSettings() = 0;
-		virtual VOID PreInitialize() = 0;
-		virtual VOID Initialize() = 0;
-		virtual VOID Update() = 0;
+		virtual void SetupPerGameSettings() = 0;
 	};
 
 	IApplication* EntryApplication();

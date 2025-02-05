@@ -8,7 +8,7 @@ namespace SplashScreen {
 
 	SplashWindow* m_splashWindow;
 
-	VOID Open() {
+	void Open() {
 		if (m_splashWindow != nullptr) {
 			return;
 		}
@@ -16,11 +16,11 @@ namespace SplashScreen {
 		m_splashWindow = new SplashWindow();
 	}
 
-	VOID Close() {
-
+	void Close() {
+		//Todo
 	}
 
-	VOID AddMessage(const WCHAR* a_message) {
+	void AddMessage(const WCHAR* a_message) {
 		PostMessage(m_splashWindow->GetHandle(), WM_OUTPUTMESSAGE, (WPARAM)a_message, 0);
 	}
 }
@@ -29,7 +29,6 @@ namespace SplashScreen {
 SplashWindow::SplashWindow() 
 	: Win32::Window(L"SplashScreen", Win32::POPUP) {
 	wcscpy_s(m_outputMessage, L"SplashScreen Starting...");
-	Win32::Window::RegisterNewClass();
 	Win32::Window::SetSize(500, 600);
 	Win32::Window::Initialize();
 }
@@ -48,16 +47,16 @@ LRESULT SplashWindow::MessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wpara
 		Win32::Utils::AddBitmap(PerGameSettings::SplashURL(), hdc);
 
 		SetBkMode(hdc, TRANSPARENT);
-		SetTextColor(hdc, RGB(255, 255, 255));
+		SetTextColor(hdc, Color::black);
 
 		if (Engine::GetMode() != Engine::EngineMode::RELEASE) {
-			std::wstring egineModeText = Engine::EngineModeString() + L" Mode";
+			std::wstring engineModeText = Engine::EngineModeString() + L" Mode";
 			SetTextAlign(hdc, TA_RIGHT);
-			TextOut(hdc, GetSize().cx - 15, 15, egineModeText.c_str(), (INT)wcslen(egineModeText.c_str()));
+			TextOut(hdc, GetSize().cx - 15, 15, engineModeText.c_str(), (int)wcslen(engineModeText.c_str()));
 		}
 
 		SetTextAlign(hdc, TA_CENTER);
-		TextOut(hdc, GetSize().cx / 2, GetSize().cy - 30, m_outputMessage, (INT)wcslen(m_outputMessage));
+		TextOut(hdc, GetSize().cx / 2, GetSize().cy - 30, m_outputMessage, (int)wcslen(m_outputMessage));
 		EndPaint(a_hWnd, &ps);
 	}
 	break;

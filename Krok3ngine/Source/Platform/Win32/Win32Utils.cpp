@@ -3,7 +3,7 @@
 
 namespace Win32 {
 	namespace Utils {
-		BOOL KROK3NGINE_API AddBitmap(const WCHAR* a_szFileName, HDC a_hWinDC, INT a_x, INT a_y) {
+		bool KROK3NGINE_API AddBitmap(const WCHAR* a_szFileName, HDC a_hWinDC, int a_x, int a_y) {
 			BITMAP qBitmap;
 			HDC hLocalDC = CreateCompatibleDC(a_hWinDC);
 

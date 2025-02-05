@@ -2,7 +2,7 @@
 #include "CmdLineArgs.h"
 #include <algorithm>
 
-VOID CmdLineArgs::ReadArguments() {
+void CmdLineArgs::ReadArguments() {
 	int argc = 0;
 	LPWSTR* argv = CommandLineToArgvW(GetCommandLineW(), &argc);
 
@@ -15,7 +15,7 @@ VOID CmdLineArgs::ReadArguments() {
 	}
 }
 
-VOID KROK3NGINE_API CmdLineArgs::ReadArgument(const WCHAR* argument) {
+void KROK3NGINE_API CmdLineArgs::ReadArgument(const WCHAR* argument) {
 	if (wcscmp(argument, L"debug") == 0) {
 		Engine::SetMode(Engine::EngineMode::DEBUG);
 	} else if (wcscmp(argument, L"editor") == 0) {

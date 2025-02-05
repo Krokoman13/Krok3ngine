@@ -4,13 +4,14 @@
 #include "SplashScreen.h"
 
 namespace Krok3ngine {
-	Simulation::Simulation() {
+	Simulation::Simulation() : 
+		m_window(L"Application", Win32::RESIZABLE, NULL) {
 	}
 
 	Simulation::~Simulation() {
 	}
 
-	VOID Simulation::PreInitialize() {
+	void Simulation::baseInitialize() {
 		Logger::PrintDebugSeperator();
 		Logger::PrintLog(L"Application Starting...");
 		Logger::PrintLog(L"Game Name: %s", PerGameSettings::GameName());
@@ -20,23 +21,15 @@ namespace Krok3ngine {
 
 		SplashScreen::Open();
 		SplashScreen::AddMessage(L"Starting Application...");
-
-		Win32::Window::RegisterNewClass();
-		Win32::Window::Initialize();
 	}
 
-	VOID Simulation::Initialize() {
-		DX::DirectXManager::Initialize();
+	void Simulation::baseLoad() {
+		m_window.Initialize();
+		m_renderer.Initialize(&m_window);
 	}
 
-	VOID Simulation::Update() {
-		DX::DirectXManager::Render();
+	void Simulation::baseUpdate() {
+		m_renderer.Render();
 	}
 
-	LRESULT Simulation::MessageHandler(HWND a_hWnd, UINT a_message, WPARAM a_wparam, LPARAM a_lparam) {
-		switch (a_message) {
-		}
-
-		return Window::MessageHandler(a_hWnd, a_message, a_wparam, a_lparam);
-	}
 }

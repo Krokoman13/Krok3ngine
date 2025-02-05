@@ -5,7 +5,7 @@
 
 /* Get Time in format '00:00:00' */
 /* Stripped = 000000 */
-std::wstring Time::GetTime(BOOL stripped)
+std::wstring Time::GetTime(bool stripped)
 {
 	time_t now = time(0);
 	tm ltm;
@@ -26,7 +26,7 @@ std::wstring Time::GetTime(BOOL stripped)
 
 /* Get date in format '00/00/00' */
 /* Stripped = 000000 */
-std::wstring Time::GetDate(BOOL stripped) {
+std::wstring Time::GetDate(bool stripped) {
 	time_t now = time(0);
 	tm ltm;
 	localtime_s(&ltm, &now);
@@ -46,7 +46,7 @@ std::wstring Time::GetDate(BOOL stripped) {
 
 /* Get date time in format '00/00/00 00:00:00' */
 /* Stripped = 000000000000 */
-std::wstring Time::GetDateTimeString(BOOL stripped) {
+std::wstring Time::GetDateTimeString(bool stripped) {
 	std::wstring timeString = GetDate(stripped) + (stripped ? L"" : L" ") + GetTime(stripped);
 	return timeString;
 }

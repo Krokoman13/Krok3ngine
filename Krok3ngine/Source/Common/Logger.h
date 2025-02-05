@@ -13,13 +13,13 @@ public:
 	~Logger();
 
 public:
-	static VOID PrintLog(const WCHAR* fmt, ...);
-	static VOID PrintWarning(const WCHAR* fmt, ...);
-	static VOID PrintError(const WCHAR* fmt, ...);
-	static VOID PrintDebugSeperator();
+	static void PrintLog(const WCHAR* fmt, ...);
+	static void PrintWarning(const WCHAR* fmt, ...);
+	static void PrintError(const WCHAR* fmt, ...);
+	static void PrintDebugSeperator();
 
 private:
-	static VOID log(const WCHAR* a_str);
+	static void log(const WCHAR* a_str);
 	static std::wstring dateLog();
 	static std::wstring LogDirectory();
 	static std::wstring LogFile();

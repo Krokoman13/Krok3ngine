@@ -3,9 +3,9 @@
 #include "Platform/Win32/Window.h"
 
 namespace SplashScreen {
-	VOID KROK3NGINE_API Open();
-	VOID KROK3NGINE_API Close();
-	VOID KROK3NGINE_API AddMessage(const WCHAR* a_message);
+	void KROK3NGINE_API Open();
+	void KROK3NGINE_API Close();
+	void KROK3NGINE_API AddMessage(const WCHAR* a_message);
 }
 
 class KROK3NGINE_API SplashWindow : public Win32::Window {
