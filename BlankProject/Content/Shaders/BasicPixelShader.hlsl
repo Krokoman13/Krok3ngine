@@ -22,7 +22,7 @@ Pixel main(Interpolants In) {
     
     float3 cameraPos = float4(viewMatrix._14, viewMatrix._24, viewMatrix._34, 1.f);
     
-    float3 lightPos = float3(30.f, 30.f, 30.f);
+    float3 lightPos = float3(10.f, 30.f, -10.f);
     float3 pointLightColor = float3(1.f, 1.f, 1.f);    
     
     float3 ambientLightColor = float3(1.f, 1.f, 1.f);
