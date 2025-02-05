@@ -46,7 +46,6 @@ namespace DX {
 
 	private:
 		DXGI_FORMAT m_backBufferFormat = DXGI_FORMAT_B8G8R8A8_UNORM;
-		DXGI_FORMAT m_depthBufferFormat = DXGI_FORMAT_D32_FLOAT;
 		UINT m_backBufferCount = 2;
 		DXGI_COLOR_SPACE_TYPE m_colorSpace = DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709;
 		unsigned int m_options = 0x1 | 0x1;
@@ -59,6 +58,7 @@ namespace DX {
 
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>         m_renderTarget;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>         m_depthStencil;
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_depthState;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>  m_d3dRenderTargetView;
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>  m_d3dDepthStencilView;
 		D3D11_VIEWPORT                                  m_screenViewport;
