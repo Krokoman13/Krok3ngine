@@ -7,7 +7,7 @@
 class BlankProject : public Krok3ngine::Simulation {
 public:
 	BlankProject() { 
-		mesh = std::make_unique<Engine::BasicMesh>("Content/Models/cup/cup.obj");
+		mesh = std::make_unique<Engine::BasicMesh>("Content/Models/dragon/Dragon.obj");
 		AddRenderObject(mesh.get());
 	};
 	~BlankProject() {};
@@ -17,13 +17,13 @@ public:
 
 protected:
 	virtual void load() override{
-		//Engine::Camera::GetMainCamera()->Move(0.f, -20.f, 35.f);
-		Engine::Camera::GetMainCamera()->Move(0.f, 0.f, 1.f);
-		//mesh->Rotate(1.f, 0.f, 0.f, -DirectX::XM_PI / 2.f);
+		Engine::Camera::GetMainCamera()->Move(0.f, -20.f, 35.f);
+		//Engine::Camera::GetMainCamera()->Move(0.f, 0.f, 1.f);
+		mesh->Rotate(1.f, 0.f, 0.f, -DirectX::XM_PI / 2.f);
 	}
 
 	virtual void update() override {
-		//Engine::Camera::GetMainCamera()->Move(0.f, -0.01f, 0.01f);
+		Engine::Camera::GetMainCamera()->Move(0.f, -0.01f, 0.01f);
 		mesh->Rotate(0.f, 1.f, 0.f, 0.01f);
 	}
 

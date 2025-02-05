@@ -3,6 +3,7 @@
 namespace DX {
 	struct ConstMatrixBuffer {
 		DirectX::XMFLOAT4X4  world;
+		DirectX::XMFLOAT4X4  invWorld;
 		DirectX::XMFLOAT4X4  view;
 		DirectX::XMFLOAT4X4  projection;
 	};
@@ -51,6 +52,7 @@ namespace DX {
 		for (auto it : m_toRender) {
 			ConstMatrixBuffer updatedMatrixBuffer;
 			DirectX::XMStoreFloat4x4(&updatedMatrixBuffer.world, it->GetWorldMatrix());
+			DirectX::XMStoreFloat4x4(&updatedMatrixBuffer.invWorld, XMMatrixTranspose(XMMatrixInverse(nullptr, it->GetWorldMatrix())));
 			DirectX::XMStoreFloat4x4(&updatedMatrixBuffer.view, Engine::Camera::GetMainCamera()->GetView());
 			DirectX::XMStoreFloat4x4(&updatedMatrixBuffer.projection, Engine::Camera::GetMainCamera()->GetProjection());
 

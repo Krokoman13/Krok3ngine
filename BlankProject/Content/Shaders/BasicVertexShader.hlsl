@@ -6,11 +6,15 @@ struct VertexInput {
 
 struct Interpolants {
     float4 position : SV_Position;
+    
     float4 color : COLOR0;
+    float3 normal : NORMAL;
+    float3 fragPosition : FRAGPOSITION;
 };
 
 cbuffer MatrixBuffer {
     matrix worldMatrix;
+    matrix invWorldMatrix;
     matrix viewMatrix;
     matrix projectionMatrix;
 }
@@ -21,7 +25,11 @@ Interpolants main(VertexInput In) {
     
     Interpolants Out;
     Out.position = pos;
-    Out.color = float4(1.0f, 1.0f, 1.0f, 1.0f);
     
+    Out.fragPosition = mul(worldMatrix, float4(In.position, 1.0f));
+    Out.normal = mul(invWorldMatrix, float4(In.normal, 0.0f)).xyz;
+    
+    Out.color = float4(In.normal, 1.0f);
+
     return Out;
 }

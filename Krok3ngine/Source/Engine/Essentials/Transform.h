@@ -16,6 +16,11 @@ namespace Engine {
 			m_world *= DirectX::XMMatrixRotationAxis(DirectX::XMVectorSet(a_axisX, a_axisY, a_axisZ, 1.0f), a_amount);
 		}
 
+		void Scale(float a_x, float a_y, float a_z) {
+			m_world *= DirectX::XMMatrixScaling(a_x, a_y, a_z);
+		}
+
+
 	private:
 		DirectX::XMMATRIX m_world;
 	};
