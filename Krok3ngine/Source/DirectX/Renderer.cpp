@@ -18,7 +18,7 @@ namespace DX {
 	}
 
 	void Renderer::Render() {
-		m_screenViewport = { 0.0f, 0.0f, (float)m_pWindow->GetSize().cx, (float)m_pWindow->GetSize().cy };
+		//m_screenViewport = { 0.0f, 0.0f, (float)m_pWindow->GetSize().cx, (float)m_pWindow->GetSize().cy };
 		m_d3dAnnotation->BeginEvent(L"Clear");
 
 		// Clear the views.
@@ -30,6 +30,7 @@ namespace DX {
 		DirectX::XMVECTORF32 BackgroundColor = { { { 0.052860655f, 0.052860655f, 0.052860655f, 1.f } } };
 		context->ClearRenderTargetView(renderTarget, BackgroundColor);
 		context->ClearDepthStencilView(depthStencil, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+		context->OMSetDepthStencilState(m_depthState.Get(), 0);
 		context->OMSetRenderTargets(1, &renderTarget, depthStencil);
 		auto viewport = m_screenViewport;
 		context->RSSetViewports(1, &viewport);
@@ -166,29 +167,37 @@ namespace DX {
 			m_d3dRenderTargetView.ReleaseAndGetAddressOf()
 		));
 
-		if (m_depthBufferFormat != DXGI_FORMAT_UNKNOWN) {
-			CD3D11_TEXTURE2D_DESC depthStencilDesc(
-				m_depthBufferFormat,
-				backBufferWidth,
-				backBufferHeight,
-				1, // This depth stencil view has only one texture.
-				1, // Use a single mipmap level.
-				D3D11_BIND_DEPTH_STENCIL
-			);
 
-			DX::ThrowIfFailed(m_d3dDevice->CreateTexture2D(
-				&depthStencilDesc,
-				nullptr,
-				m_depthStencil.ReleaseAndGetAddressOf()
-			));
+		D3D11_DEPTH_STENCIL_DESC dsDesc = {};
+		dsDesc.DepthEnable = true;
+		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
+		DX::ThrowIfFailed(m_d3dDevice->CreateDepthStencilState(&dsDesc, &m_depthState));
 
-			CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
-			DX::ThrowIfFailed(m_d3dDevice->CreateDepthStencilView(
-				m_depthStencil.Get(),
-				&depthStencilViewDesc,
-				m_d3dDepthStencilView.ReleaseAndGetAddressOf()
-			));
-		}
+		CD3D11_TEXTURE2D_DESC depthStencilDesc(
+			DXGI_FORMAT_D32_FLOAT,
+			backBufferWidth,
+			backBufferHeight,
+			1,                    // One mip level
+			1,                    // No multisampling
+			D3D11_BIND_DEPTH_STENCIL,
+			D3D11_USAGE_DEFAULT,  
+			0                    
+		);
+
+		DX::ThrowIfFailed(m_d3dDevice->CreateTexture2D(
+			&depthStencilDesc,
+			nullptr,
+			m_depthStencil.ReleaseAndGetAddressOf()
+		));
+
+		CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
+		DX::ThrowIfFailed(m_d3dDevice->CreateDepthStencilView(
+			m_depthStencil.Get(),
+			&depthStencilViewDesc,
+			m_d3dDepthStencilView.ReleaseAndGetAddressOf()
+		));
+
 
 		m_screenViewport = CD3D11_VIEWPORT(
 			0.0f,
